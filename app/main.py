@@ -1,16 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-
+from app.config.db import Base, engine
 app = FastAPI()
 
-class User(BaseModel):
-    name: str
-    age: int
+Base.metadata.create_all(engine)
 
-@app.get("/")
-def home():
-    return {"message": "FastAPI is running"}
-
-@app.post("/users")
-def create_user(user: User):
-    return user
